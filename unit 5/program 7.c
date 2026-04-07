@@ -1,0 +1,53 @@
+// Program to sort elements in ascending order using quick sort
+#include <stdio.h>
+
+void quicksort(int arr[], int low, int high) {
+    int i, j, pivot, temp;
+
+    if (low < high) {
+        pivot = arr[low];
+        i = low + 1;
+        j = high;
+
+        while (i <= j) {
+            while (i <= high && arr[i] <= pivot)
+                i++;
+            while (arr[j] > pivot)
+                j--;
+
+            if (i < j) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        temp = arr[low];
+        arr[low] = arr[j];
+        arr[j] = temp;
+
+        quicksort(arr, low, j - 1);
+        quicksort(arr, j + 1, high);
+    }
+}
+
+int main() {
+    int arr[100], n, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    quicksort(arr, 0, n - 1);
+
+    printf("Sorted elements in ascending order:\n");
+    for(i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
